@@ -17,7 +17,7 @@ function start(){
   var data = window.location.hash.replace("#","");
   allImages = data.split(",");
   var markup = "";
-  for(var i=0;i<allImages.length;i++){
+  for(var i=0;i<=allImages.length;i++){
       markup += "<div class='slide' style='background-image:url(" + allImages[i] + ")'></div>";
   }
   document.getElementById("imageWrapper").innerHTML = markup;
@@ -41,7 +41,7 @@ function goPrev(){
 
 function goNext(){
   currentSlide = currentSlide + 1;
-  if(currentSlide >=(allImages.length+1)){
+  if(currentSlide > (allImages.length+1)){
     currentSlide = 1;
   }
   goToCurrentSlide()
@@ -50,15 +50,22 @@ function goNext(){
 function goToCurrentSlide(){
   var allImgObjs = document.getElementsByClassName("slide");
   var i = 0;
-  while(i < allImgObjs.length){
+  while(i <= allImgObjs.length){
     if(i == (currentSlide - 1)){
-      allImgObjs[i].style.marginLeft = "0%"
+      allImgObjs[currentSlide].style.opacity = "100%";
+      allImgObjs[i].style.opacity = "0%"
     }
     else if(i < (currentSlide - 1)){
-      allImgObjs[i].style.marginLeft = "-100%";
+      allImgObjs[currentSlide].style.opacity = "100%";
+      allImgObjs[i].style.opacity = "0%";
+    }
+    else if(currentSlide == allImgObjs.length){
+      allImgObjs[currentSlide].style.opacity = "100%"
+      allImgObjs[i].style.opacity = "0%";
     }
     else{
-      allImgObjs[i].style.marginLeft = "100%";
+      allImgObjs[currentSlide].style.opacity = "100%";
+      allImgObjs[i].style.opacity = "0%";
     }
     i = i + 1;
   }
@@ -115,5 +122,6 @@ function goToSlide(n)
   .active{
     background-color:gold;
   }
+
 </style>
 </html>
